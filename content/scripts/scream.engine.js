@@ -41,7 +41,7 @@ scream.engine = function () {
                 if (weather.temp > 18) {
                     $('html, body, .footer').attr('style', 'background-color: #F7AC57');
                 } else {
-                    $('html, body, .footer').attr('style', 'background-color: #0091c2');
+                    $('html, body, .footer').attr('style', 'background-color: #BFBFFF');
                 }
 
                 html = '<h1 class="icon-' + weather.code + '"></h1>';
