@@ -1,0 +1,181 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Screamer</title>
+
+    <link rel="stylesheet" href="content/css/reset.css">
+    <link rel="stylesheet" href="content/css/bootstrap.min.css">
+    <link rel="stylesheet" href="content/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="content/css/font-awesome.min.css">
+
+    <link rel="stylesheet" href="content/css/site-clock.css">
+    <link rel="stylesheet" href="content/css/site-weather.css">
+
+    <script src="content/scripts/jquery.min.js"></script>
+    <script src="content/scripts/bootstrap.min.js"></script>
+    <script src="content/scripts/moment.min.js"></script>
+
+</head>
+
+<body>
+
+    <div class="row">
+
+        <div class="col-xs-6">
+            <div id="ScreamClock" class="scream-clock-container"></div>
+
+        </div>
+
+        <div class="col-xs-6">
+
+            <div class="row">
+                <div class="col-xs-12 date-weather-container text-center">
+
+                    <div class="date-container">
+                        <p class="current-date">Saturday January 29, 1972</p>
+                        <div class="weekdays">
+                            <span>Mon</span>
+                            <span>Tue</span>
+                            <span class="active">Wed</span>
+                            <span>Thu</span>
+                            <span>Fri</span>
+                            <span>Sat</span>
+                            <span>Sun</span>
+                        </div>
+                    </div>
+
+                    <div id="weather"></div>
+
+                </div>
+            </div>
+
+            <div class="row command-row">
+                <div class="col-xs-12 text-center">
+                    <button class="btn btn-success btn-lg btn-play" data-action="play"><i class="fa fa-play"></i></button>
+                    <button class="btn btn-danger btn-lg btn-stop" data-action="stop"><i class="fa fa-stop"></i></button>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <footer class="footer">
+        <div class="container">
+
+            <p class="sonos-info pull-left"></p>
+
+            <button class="btn btn-info btn-xs pull-right btn-settings" data-toggle="modal" data-target="#Settings"><i class="fa fa-cog fa-3x"></i></button>
+        </div>
+    </footer>
+
+
+
+
+
+    <div id="Settings" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Screamer Settings</h4>
+                </div>
+
+                <div class="modal-body">
+
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <a class="btn btn-danger option" data-action="reboot" href="#">
+                                <i class="fa fa-power-off fa-2x pull-left"></i><span>reboot</span>
+                            </a>
+                        </div>
+                    </div>
+                    <hr />
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <a class="btn btn-info option" data-action="refresh" href="#">
+                                <i class="fa fa-refresh fa-2x pull-left"></i><span>refresh</span>
+                            </a>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+
+
+    <script src="content/scripts/jquery.simpleWeather.min.js"></script>
+
+    <script src="content/scripts/scream.clock.js"></script>
+    <script src="content/scripts/scream.engine.js"></script>
+
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+
+            scream.engine.initialize();
+
+
+
+            $('.option').on('click', function (e) {
+
+                var action = $(this).data('action');
+                data = { 'action': action };
+
+                switch (action) {
+
+                    case "reboot":
+                        $.post("reboot.php", data, function (response) {
+                            //alert(response);
+                        });
+                        break;
+
+                    case "refresh":
+                        location.reload(true);
+                        break;
+                }
+            });
+
+
+
+
+
+            $('.btn-play, .btn-stop').click(function () {
+
+                var action = $(this).data('action');
+                data = { 'action': action };
+
+                $.post("clock.php", data, function (response) {
+                });
+
+                //$.ajax({
+                //    url: "clock.php",
+                //    type: "POST",
+                //    dataType: "json",
+                //    data: data,
+                //    success: function (response) {
+
+                //        if (action == 'info') {
+                //            $('.current-media').html(response);
+                //        }
+                //    }
+                //});
+            });
+        });
+
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,109 @@
+﻿
+html, * {
+    padding: 0;
+    margin: 0;
+    overflow: hidden;
+}
+/* hack to get epiphany browser on the pi to be truley full screen /w no scroll bars */
+
+
+
+body {
+    padding: 0;
+    margin: 0;
+    font-family: 'Verdana, Geneva, sans-serif';
+    color: #222222;
+    -webkit-transition-duration: .1s;
+    -moz-transition-duration: .1s;
+    -o-transition-duration: .1s;
+    transition-duration: .1s;
+    -webkit-animation-timing-function: ease-in-out;
+    -moz-animation-timing-function: ease-in-out;
+    -o-animation-timing-function: ease-in-out;
+    animation-timing-function: ease-in-out;
+    text-rendering: optimizeLegibility;
+    margin-bottom: 60px;
+}
+
+.footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    /* Set the fixed height of the footer here */
+    height: 60px;
+    background-color: #f5f5f5;
+}
+
+
+
+
+.scream-clock-container {
+    display: inline-block;
+    vertical-align: middle;
+    text-align: center;
+    margin: 10px 0 0 10px;
+}
+
+.clock {
+    display: inline;
+}
+
+
+
+
+
+.date-weather-container {
+    font-size: 1.35em;
+    margin: 25px 20px 0 0;
+}
+.date-container {
+    background-color: beige;
+    border-radius: 3px;
+    margin: 5px;
+}
+    .weekdays span {
+        padding: 0 2px;
+    }
+
+        .weekdays span.active {
+            font-weight: bold;
+            color: #3366FF;
+            border: 1px solid #3366FF;
+            border-radius: 3px;
+        }
+
+
+
+
+.command-row {
+    margin-top: 20px;
+}
+
+    .command-row .btn:first-child {
+        margin-right: 50px;
+    }
+
+
+
+
+/* Footer content */
+.btn-settings {
+    margin: 5px 5px 0 0;
+}
+
+.current-media {
+    display: block;
+    margin: 10px;
+}
+
+
+#Settings a.btn span {
+    font-size: 1.4em;
+    margin-top: 10px;
+}
+
+
+.sonos-info {
+    font-size: 1.4em;
+    line-height: 2.4em;
+}
