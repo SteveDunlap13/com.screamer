@@ -5,7 +5,7 @@
 
         this.each(function () {
 
-            var cnv, ctx, el,
+            var cnv, ctx, clock,
                 defaults,
                 settings,
                 radius,
@@ -27,24 +27,24 @@
 
             settings = $.extend({}, defaults, options);
 
-            el = this;
+            clock = this;
 
-            el.size = settings.size;
-            el.dialColor = settings.dialColor;
-            el.dialBackgroundColor = settings.dialBackgroundColor;
-            el.secondHandColor = settings.secondHandColor;
-            el.minuteHandColor = settings.minuteHandColor;
-            el.hourHandColor = settings.hourHandColor;
-            el.hourCorrection = settings.hourCorrection;
-            el.showNumerals = settings.showNumerals;
+            clock.size = settings.size;
+            clock.dialColor = settings.dialColor;
+            clock.dialBackgroundColor = settings.dialBackgroundColor;
+            clock.secondHandColor = settings.secondHandColor;
+            clock.minuteHandColor = settings.minuteHandColor;
+            clock.hourHandColor = settings.hourHandColor;
+            clock.hourCorrection = settings.hourCorrection;
+            clock.showNumerals = settings.showNumerals;
 
-            el.brandText = settings.brandText;
-            el.brandText2 = settings.brandText2;
+            clock.brandText = settings.brandText;
+            clock.brandText2 = settings.brandText2;
 
-            el.onEverySecond = settings.onEverySecond;
+            clock.onEverySecond = settings.onEverySecond;
 
-            el.customTime = settings.customTime;
-            el.onEveryCustomTime = settings.onEveryCustomTime;
+            clock.customTime = settings.customTime;
+            clock.onEveryCustomTime = settings.onEveryCustomTime;
 
             cnv = document.createElement('canvas');
             ctx = cnv.getContext('2d');
@@ -52,12 +52,12 @@
             cnv.width = this.size;
             cnv.height = this.size;
 
-            //append canvas to element
-            $(cnv).appendTo(el);
+            // append canvas to element
+            $(cnv).appendTo(clock);
 
-            radius = parseInt(el.size / 2, 10);
+            radius = parseInt(clock.size / 2, 10);
 
-            //translate 0,0 to center of circle:
+            // translate 0,0 to center of circle:
             ctx.translate(radius, radius);
 
 
@@ -76,8 +76,8 @@
                     text, textSize, textWidth,
                     brandtextWidth, brandtextWidth2;
 
-                dialRadius = parseInt(radius - (el.size / 50), 10);
-                dialBackRadius = radius - (el.size / 400);
+                dialRadius = parseInt(radius - (clock.size / 50), 10);
+                dialBackRadius = radius - (clock.size / 400);
 
                 ctx.beginPath();
                 ctx.arc(0, 0, dialBackRadius, 0, 360, false);
@@ -91,10 +91,10 @@
                     sang = Math.sin(ang);
                     cang = Math.cos(ang);
 
-                    //hour marker/numeral
+                    // hour marker / numeral
                     if (i % 5 === 0) {
 
-                        ctx.lineWidth = parseInt(el.size / 50, 10);
+                        ctx.lineWidth = parseInt(clock.size / 50, 10);
                         sx = sang * (dialRadius - dialRadius / 9);
                         sy = cang * -(dialRadius - dialRadius / 9);
                         ex = sang * dialRadius;
@@ -103,19 +103,19 @@
                         ny = cang * -(dialRadius - dialRadius / 4.2);
                         text = i / 5;
                         ctx.textBaseline = 'middle';
-                        textSize = parseInt(el.size / 13, 10);
+                        textSize = parseInt(clock.size / 13, 10);
                         ctx.font = '100 ' + textSize + 'px helvetica';
                         textWidth = ctx.measureText(text).width;
                         ctx.beginPath();
                         ctx.fillStyle = color;
 
-                        if (el.showNumerals) {
+                        if (clock.showNumerals) {
                             ctx.fillText(text, nx - (textWidth / 2), ny);
                         }
-                        //minute marker
                     } else {
 
-                        ctx.lineWidth = parseInt(el.size / 100, 10);
+                        // minute marker
+                        ctx.lineWidth = parseInt(clock.size / 100, 10);
                         sx = sang * (dialRadius - dialRadius / 20);
                         sy = cang * -(dialRadius - dialRadius / 20);
                         ex = sang * dialRadius;
@@ -130,19 +130,19 @@
                     ctx.stroke();
                 }
 
-                if (el.brandText !== undefined) {
+                if (clock.brandText !== undefined) {
 
-                    ctx.font = '100 ' + parseInt(el.size / 28, 10) + 'px helvetica';
-                    brandtextWidth = ctx.measureText(el.brandText).width;
-                    ctx.fillText(el.brandText, -(brandtextWidth / 2), (el.size / 6));
+                    ctx.font = '100 ' + parseInt(clock.size / 28, 10) + 'px helvetica';
+                    brandtextWidth = ctx.measureText(clock.brandText).width;
+                    ctx.fillText(clock.brandText, -(brandtextWidth / 2), (clock.size / 6));
                 }
 
-                if (el.brandText2 !== undefined) {
+                if (clock.brandText2 !== undefined) {
 
                     ctx.textBaseline = 'middle';
-                    ctx.font = '100 ' + parseInt(el.size / 44, 10) + 'px helvetica';
-                    brandtextWidth2 = ctx.measureText(el.brandText2).width;
-                    ctx.fillText(el.brandText2, -(brandtextWidth2 / 2), (el.size / 5));
+                    ctx.font = '100 ' + parseInt(clock.size / 44, 10) + 'px helvetica';
+                    brandtextWidth2 = ctx.measureText(clock.brandText2).width;
+                    ctx.fillText(clock.brandText2, -(brandtextWidth2 / 2), (clock.size / 5));
                 }
             }
 
@@ -168,31 +168,31 @@
 
             function drawSecondHand(seconds, color) {
 
-                var shlength = (radius) - (el.size / 40);
+                var shlength = (radius) - (clock.size / 40);
 
                 ctx.save();
-                ctx.lineWidth = parseInt(el.size / 150, 10);
+                ctx.lineWidth = parseInt(clock.size / 150, 10);
                 ctx.lineCap = "round";
                 ctx.strokeStyle = color;
                 ctx.rotate(toRadians(seconds * 6));
 
                 ctx.shadowColor = 'rgba(0,0,0,.5)';
-                ctx.shadowBlur = parseInt(el.size / 80, 10);
-                ctx.shadowOffsetX = parseInt(el.size / 200, 10);
-                ctx.shadowOffsetY = parseInt(el.size / 200, 10);
+                ctx.shadowBlur = parseInt(clock.size / 80, 10);
+                ctx.shadowOffsetX = parseInt(clock.size / 200, 10);
+                ctx.shadowOffsetY = parseInt(clock.size / 200, 10);
 
                 drawHand(shlength);
 
-                //tail of secondhand
+                // tail of secondhand
                 ctx.beginPath();
                 ctx.moveTo(0, 0);
                 ctx.lineTo(0, shlength / 15);
-                ctx.lineWidth = parseInt(el.size / 30, 10);
+                ctx.lineWidth = parseInt(clock.size / 30, 10);
                 ctx.stroke();
 
-                //round center
+                // round center
                 ctx.beginPath();
-                ctx.arc(0, 0, parseInt(el.size / 30, 10), 0, 360, false);
+                ctx.arc(0, 0, parseInt(clock.size / 30, 10), 0, 360, false);
                 ctx.fillStyle = color;
 
                 ctx.fill();
@@ -201,17 +201,17 @@
 
             function drawMinuteHand(minutes, color) {
 
-                var mhlength = el.size / 2.2;
+                var mhlength = clock.size / 2.2;
                 ctx.save();
-                ctx.lineWidth = parseInt(el.size / 50, 10);
+                ctx.lineWidth = parseInt(clock.size / 50, 10);
                 ctx.lineCap = "round";
                 ctx.strokeStyle = color;
                 ctx.rotate(toRadians(minutes * 6));
 
-                ctx.shadowColor = 'rgba(0,0,0,.5)';
-                ctx.shadowBlur = parseInt(el.size / 50, 10);
-                ctx.shadowOffsetX = parseInt(el.size / 250, 10);
-                ctx.shadowOffsetY = parseInt(el.size / 250, 10);
+                ctx.shadowColor = 'rgba(0, 0, 0, 0.5)';
+                ctx.shadowBlur = parseInt(clock.size / 50, 10);
+                ctx.shadowOffsetX = parseInt(clock.size / 250, 10);
+                ctx.shadowOffsetY = parseInt(clock.size / 250, 10);
 
                 drawHand(mhlength);
                 ctx.restore();
@@ -219,17 +219,17 @@
 
             function drawHourHand(hours, color) {
 
-                var hhlength = el.size / 3;
+                var hhlength = clock.size / 3;
                 ctx.save();
-                ctx.lineWidth = parseInt(el.size / 25, 10);
+                ctx.lineWidth = parseInt(clock.size / 25, 10);
                 ctx.lineCap = "round";
                 ctx.strokeStyle = color;
                 ctx.rotate(toRadians(hours * 30));
 
-                ctx.shadowColor = 'rgba(0,0,0,.5)';
-                ctx.shadowBlur = parseInt(el.size / 50, 10);
-                ctx.shadowOffsetX = parseInt(el.size / 300, 10);
-                ctx.shadowOffsetY = parseInt(el.size / 300, 10);
+                ctx.shadowColor = 'rgba(0, 0, 0, 0.5)';
+                ctx.shadowBlur = parseInt(clock.size / 50, 10);
+                ctx.shadowOffsetX = parseInt(clock.size / 300, 10);
+                ctx.shadowOffsetY = parseInt(clock.size / 300, 10);
 
                 drawHand(hhlength);
                 ctx.restore();
@@ -270,18 +270,18 @@
 
 
 
-            // Event Listeners
-            if (el.onEverySecond !== undefined) {
+            // event listeners
+            if (clock.onEverySecond !== undefined) {
 
-                $(el).on('onEverySecond', function (e) {
-                    el.onEverySecond();
+                $(clock).on('onEverySecond', function (e) {
+                    clock.onEverySecond();
                     e.preventDefault();
                 });
             }
-            if (el.onEveryCustomTime !== undefined) {
+            if (clock.onEveryCustomTime !== undefined) {
 
-                $(el).on('onEveryCustomTime', function (e) {
-                    el.onEveryCustomTime();
+                $(clock).on('onEveryCustomTime', function (e) {
+                    clock.onEveryCustomTime();
                     e.preventDefault();
                 });
             }
@@ -300,27 +300,28 @@
                 mins = theDate.getMinutes();
                 m = mins + (s / 60);
                 hours = theDate.getHours();
-                h = twelvebased(hours + numberCorrection(el.hourCorrection)) + (m / 60);
+                h = twelvebased(hours + numberCorrection(clock.hourCorrection)) + (m / 60);
 
-                ctx.clearRect(-radius, -radius, el.size, el.size);
+                ctx.clearRect(-radius, -radius, clock.size, clock.size);
 
-                drawDial(el.dialColor, el.dialBackgroundColor);
+                drawDial(clock.dialColor, clock.dialBackgroundColor);
 
-                drawHourHand(h, el.hourHandColor);
-                drawMinuteHand(m, el.minuteHandColor);
-                drawSecondHand(s, el.secondHandColor);
+                drawHourHand(h, clock.hourHandColor);
+                drawMinuteHand(m, clock.minuteHandColor);
+                drawSecondHand(s, clock.secondHandColor);
 
-                //trigger every second custom event
+                // trigger every second custom event
                 y += 1;
                 if (y === 1) {
 
-                    $(el).trigger('onEverySecond');
+                    $(clock).trigger('onEverySecond');
                     y = 0;
                 }
 
+                // trigger custom time event
                 min += 1;
-                if (min === el.customTime) {
-                    $(el).trigger('onEveryCustomTime');
+                if (min === clock.customTime) {
+                    $(clock).trigger('onEveryCustomTime');
                     min = 0;
                 }
 

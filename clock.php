@@ -55,6 +55,8 @@
     
     if($title != '') {
       echo $titleArtist, " / ", $title;
+    } else {
+      echo "";
     }
 	}
 

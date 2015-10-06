@@ -1,6 +1,4 @@
-﻿/// <reference path="analog.clock.js" />
-
-
+﻿
 var scream = scream || {};
 
 scream.engine = function () {
@@ -9,7 +7,9 @@ scream.engine = function () {
 
     initialize = function () {
 
+        displayDate();
         displaySonosInfo();
+
 
         $('#ScreamClock').screamClock({
 
@@ -20,12 +20,14 @@ scream.engine = function () {
             brandText2: '',//'some smaller text',
 
             onEverySecond: function () {
+
                 // callback that should be fired every second
-                update();
             },
             customTime: 10,
             onEveryCustomTime: function () {
-                // callback that should be fired every minute
+
+                // callback that should be fired every custom time interval
+                displayDate();
                 displaySonosInfo();
             }
         });
@@ -63,13 +65,12 @@ scream.engine = function () {
     },
 
 
-    update = function () {
+    displayDate = function () {
 
-        // Use moment.js to output the current time as a string
+        // Use moment.js to output the current date/time as a string
         // hh is for the hours in 12-hour format, mm - minutes, ss-seconds (all with leading zeroes),
         // d is for day of week and A is for AM/PM
 
-        var now = moment().format("hhmmssdA");
         var currentDate = moment().format("MMMM DD, YYYY");
         $('.current-date').html(currentDate);
 
@@ -82,19 +83,19 @@ scream.engine = function () {
         // day      now[6]
         // ampm     now[7] + now[8]
 
-        // The library returns Sunday as the first day of the week.
-        // But I want Sunday at the end...
-        var dow = now[6];
-        dow--;
+        // the library returns Sunday as the first day of the week, but we have Sunday at the end...
+        var now = moment().format("hhmmssdA");
+        var dayOfWeek = now[6];
+        dayOfWeek--;
 
         // Sunday!
-        if (dow < 0) {
+        if (dayOfWeek < 0) {
             // Make it last
-            dow = 6;
+            dayOfWeek = 6;
         }
 
-        // Mark the active day of the week
-        $('.weekdays span').removeClass('active').eq(dow).addClass('active');
+        // mark the active day of the week
+        $('.weekdays span').removeClass('active').eq(dayOfWeek).addClass('active');
     },
 
 
