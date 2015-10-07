@@ -14,7 +14,6 @@
     <script src="content/scripts/jquery.min.js"></script>
     <script src="content/scripts/bootstrap.min.js"></script>
     <script src="content/scripts/moment.min.js"></script>
-<!-- xxx -->
 
 </head>
 
@@ -53,7 +52,8 @@
             <div class="row command-row">
                 <div class="col-xs-12 text-center">
                     <button class="btn btn-success btn-lg btn-play" data-action="play"><i class="fa fa-play"></i></button>
-                    <button class="btn btn-danger btn-lg btn-stop" data-action="stop"><i class="fa fa-stop"></i></button>
+                    <!--<button class="btn btn-danger btn-lg btn-stop" data-action="stop"><i class="fa fa-stop"></i></button>-->
+                    <button class="btn btn-warning btn-lg btn-pause" data-action="pause"><i class="fa fa-pause"></i></button>
                 </div>
             </div>
 
@@ -152,16 +152,16 @@
 
 
 
-            $('.btn-play, .btn-stop').click(function () {
+            $('.btn-play, .btn-stop, .btn-pause').click(function () {
 
                 var action = $(this).data('action');
                 data = { 'action': action };
 
-                $.post("clock.php", data, function (response) {
+                $.post("screamer.php", data, function (response) {
                 });
 
                 //$.ajax({
-                //    url: "clock.php",
+                //    url: "screamer.php",
                 //    type: "POST",
                 //    dataType: "json",
                 //    data: data,

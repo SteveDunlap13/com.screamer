@@ -103,7 +103,7 @@ scream.engine = function () {
 
         data = { 'action': "current" };
 
-        $.post("clock.php", data, function (response) {
+        $.post("screamer.php", data, function (response) {
             $('.sonos-info').html(response);
         });
     };
