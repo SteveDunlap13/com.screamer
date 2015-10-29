@@ -9,7 +9,7 @@ scream.engine = function () {
 
     initialize = function () {
 
-        saveSettings();
+        //saveSettings();
         loadSettings();
 
         displayDate();
