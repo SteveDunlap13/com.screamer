@@ -3,9 +3,14 @@ var scream = scream || {};
 
 scream.engine = function () {
 
-    var intVal, myclock,
+    var intVal, myclock, settings,
+
+
 
     initialize = function () {
+
+        saveSettings();
+        loadSettings();
 
         displayDate();
         displaySonosInfo();
@@ -101,13 +106,52 @@ scream.engine = function () {
 
     displaySonosInfo = function () {
 
-        data = { 'action': "current" };
+        var data = { 'action': "current" };
 
         $.post("screamer.php", data, function (response) {
             $('.sonos-info').html(response);
         });
-    };
+    },
 
+
+    loadSettings = function () {
+
+        var data = {
+            "action": "load"
+        };
+
+        $.post("settings.php", data, function (response) {
+            
+            if (response !== '') {
+
+                settings = JSON.parse(response);
+                //alert("settings.Setting1: " + settings.Setting1);
+                //alert("settings.Setting2: " + settings.Setting2);
+                //alert("settings.Setting3: " + settings.Setting3);
+            }
+        });
+    },
+
+    saveSettings = function () {
+
+        var settings = {
+            "Setting1": "Configuration1",
+            "Setting2": "Configuration2",
+            "Setting3": "Configuration3"
+        };
+
+        var data = {
+            "action": "save",
+            "settings": settings
+        };
+
+        $.post("settings.php", data, function (response) {
+
+            //if (response !== "1") {
+            //    alert(response);
+            //}
+        });
+    };
 
 
 
