@@ -1,6 +1,4 @@
-﻿
-<?php
+﻿<?php
 
-  exec("/usr/bin/sudo /sbin/reboot");
-  
+exec("/usr/bin/sudo /sbin/reboot");
 ?>
