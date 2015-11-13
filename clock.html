@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="content/css/bootstrap.min.css">
     <link rel="stylesheet" href="content/css/bootstrap-theme.min.css">
     <link rel="stylesheet" href="content/css/font-awesome.min.css">
+    <link rel="stylesheet" href="content/css/bootstrap-clockpicker.min.css">
 
     <link rel="stylesheet" href="content/css/site-clock.css">
     <link rel="stylesheet" href="content/css/site-weather.css">
@@ -88,18 +89,39 @@
                 <div class="modal-body">
 
                     <div class="row">
-                        <div class="col-xs-12">
-                            <a class="btn btn-danger option" data-action="reboot" href="#">
-                                <i class="fa fa-power-off fa-2x pull-left"></i><span>reboot</span>
-                            </a>
+                        <div class="col-xs-6">
+
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    <a class="btn btn-danger option" data-action="reboot" href="#">
+                                        <i class="fa fa-power-off fa-2x pull-left"></i><span>reboot</span>
+                                    </a>
+                                    <hr />
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    <a class="btn btn-info option" data-action="refresh" href="#">
+                                        <i class="fa fa-refresh fa-2x pull-left"></i><span>refresh</span>
+                                    </a>
+                                </div>
+                            </div>
+
                         </div>
-                    </div>
-                    <hr />
-                    <div class="row">
-                        <div class="col-xs-12">
-                            <a class="btn btn-info option" data-action="refresh" href="#">
-                                <i class="fa fa-refresh fa-2x pull-left"></i><span>refresh</span>
-                            </a>
+                        <div class="col-xs-6">
+
+                            <dl class="dl-horizontal clockpicker-wrapper">
+                                <dt>Alarm</dt>
+                                <dd>
+                                    <div class="input-group clockpicker" data-placement="left" data-align="top" data-autoclose="true">
+                                        <input type="text" class="form-control" value="6:25">
+                                        <span class="input-group-addon">
+                                            <span class="glyphicon glyphicon-time"></span>
+                                        </span>
+                                    </div>
+                                </dd>
+                            </dl>
+                            
                         </div>
                     </div>
 
@@ -117,6 +139,7 @@
 
 
     <script src="content/scripts/jquery.simpleWeather.min.js"></script>
+    <script src="content/scripts/bootstrap-clockpicker.min.js"></script>
 
     <script src="content/scripts/scream.clock.js"></script>
     <script src="content/scripts/scream.engine.js"></script>
@@ -126,8 +149,6 @@
         $(document).ready(function () {
 
             scream.engine.initialize();
-
-
 
             $('.option').on('click', function (e) {
 
@@ -146,32 +167,6 @@
                         location.reload(true);
                         break;
                 }
-            });
-
-
-
-
-
-            $('.btn-play, .btn-stop, .btn-pause').click(function () {
-
-                var action = $(this).data('action');
-                data = { 'action': action };
-
-                $.post("screamer.php", data, function (response) {
-                });
-
-                //$.ajax({
-                //    url: "screamer.php",
-                //    type: "POST",
-                //    dataType: "json",
-                //    data: data,
-                //    success: function (response) {
-
-                //        if (action == 'info') {
-                //            $('.current-media').html(response);
-                //        }
-                //    }
-                //});
             });
         });
 

@@ -5,52 +5,51 @@ ini_set('display_errors', true);
 
 require "sonos.controller.php";
 
-$IP_sonos = "192.168.1.59";
-$sonos = new SonosController($IP_sonos);
-
 if (isset($_POST['action'])) {
 
+  $IP_sonos = $_POST['IP'];
+  
 	switch ($_POST['action']) {
 
 		case 'play' :
-			play();
+			play($IP_sonos);
 			break;
 
 		case 'stop' :
-			stop();
+			stop($IP_sonos);
 			break;
 
 		case 'pause' :
-			pause();
+			pause($IP_sonos);
 			break;
 
 		case 'current' :
-			getCurrent();
+			getCurrent($IP_sonos);
 			break;
 	}
 }
 
-function play() {
+function play($IP_sonos) {
 
-	global $IP_sonos, $sonos;
+  $sonos = new SonosController($IP_sonos);
 	$sonos -> Play();
 }
 
-function stop() {
+function stop($IP_sonos) {
 
-	global $IP_sonos, $sonos;
+  $sonos = new SonosController($IP_sonos);
 	$sonos -> Stop();
 }
 
-function pause() {
+function pause($IP_sonos) {
 
-	global $IP_sonos, $sonos;
+  $sonos = new SonosController($IP_sonos);
 	$sonos -> Pause();
 }
 
-function getCurrent() {
+function getCurrent($IP_sonos) {
 
-	global $IP_sonos, $sonos;
+  $sonos = new SonosController($IP_sonos);
 
 	$result = $sonos -> GetPositionInfo();
 

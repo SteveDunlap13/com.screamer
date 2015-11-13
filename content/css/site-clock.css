@@ -54,7 +54,7 @@ body {
 
 .date-weather-container {
     font-size: 1.35em;
-    margin: 25px 20px 0 0;
+    margin: 5px 20px 0 0;
     padding-right: 20px;
 }
 .date-container {
@@ -109,4 +109,12 @@ body {
 .sonos-info {
     font-size: 1.4em;
     line-height: 2.4em;
+}
+
+
+.clockpicker-wrapper dt {
+    width: unset;
+}
+.clockpicker-wrapper dd {
+    margin-left: 150px !important;
 }
