@@ -79,8 +79,19 @@ body {
 .command-row {
     margin-top: 20px;
 }
+.command-row .btn {
+    font-size: 40px;
+    width: 75px;
+    border-color: #727272;
+}
     .command-row .btn i {
         vertical-align: text-bottom !important;
+    }
+    .command-row .btn-play i {
+        color: #75ae48;
+    }
+    .command-row .btn-pause i {
+        color: #ffd800;
     }
     .command-row .btn:first-child {
         margin-right: 50px;
